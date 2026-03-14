@@ -1,3 +1,4 @@
+from app.models.user import User
 from sqlalchemy.orm import Session
 from ..models.file import File as FileModel
 
@@ -23,4 +24,10 @@ def update_file(db: Session, file_id: str, file_data: dict):
     return db_file
 
 def get_all_files(db: Session):
-    return db.query(FileModel).order_by(FileModel.uploaded_at.desc()).all()
+    return db.query(FileModel).join(User).order_by(FileModel.uploaded_at.desc()).all()
+
+def get_my_files(db: Session, current_user: User):
+    return db.query(FileModel).filter(FileModel.user_id == current_user.id).order_by(FileModel.uploaded_at.desc()).all()
+
+def get_file_by_file_hash(db: Session, file_hash: str):
+    return db.query(FileModel).filter(FileModel.file_hash == file_hash).first()

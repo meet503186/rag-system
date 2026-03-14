@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 import uuid
 from datetime import datetime
 from ..db.base import Base
@@ -24,3 +25,11 @@ class File(Base):
 
     uploaded_at = Column(DateTime, default=datetime.utcnow)
     indexed_at = Column(DateTime)
+
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id"),
+        nullable=False
+    )
+
+    user = relationship("User")

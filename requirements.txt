@@ -32,3 +32,5 @@ sentence-transformers
 # Data validation
 pydantic
 
+# Encryption
+bcrypt==4.3.0

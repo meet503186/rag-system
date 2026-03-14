@@ -1,3 +1,5 @@
+import os
+
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
@@ -28,3 +30,19 @@ FALLBACK_ANSWER="The answer cannot be determined from the provided information."
 
 embedding_model = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
 client = InferenceClient()
+
+
+# ENV IMPORTS
+
+# JWT
+secret_key = os.environ.get('SECRET_KEY')
+algorithm = os.environ.get('ALGORITHM')
+token_expiry = os.environ.get('ACCESS_TOKEN_EXPIRE_MINUTES')
+
+# DB
+DB_HOST = os.environ.get('DB_HOST')
+DB_USER = os.environ.get('DB_USER')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_NAME = os.environ.get('DB_NAME')
+
+

@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.db.base import Base
-from .routes import files, query
+from .routes import files, query, auth
 from .db.database import engine
 
 @asynccontextmanager
@@ -24,3 +24,4 @@ def startup():
 
 app.include_router(files.router)
 app.include_router(query.router)
+app.include_router(auth.router)
