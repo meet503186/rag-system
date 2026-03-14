@@ -1,3 +1,5 @@
+from app.dependencies.auth_guard import get_current_user
+from app.models.user import User
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -22,3 +24,7 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     return {"access_token": token}
+
+@router.get("/me")
+def me(current_user: User = Depends(get_current_user)):
+    return current_user
